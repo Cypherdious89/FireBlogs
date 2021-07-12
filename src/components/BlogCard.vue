@@ -1,6 +1,6 @@
 <template>
     <div class="blog-card">
-        <div class="icons">
+        <div v-show="editPost" class="icons">
             <div class="icon">
                 <Edit class="edit" />
             </div>
@@ -26,7 +26,12 @@ import Delete from "../assets/Icons/trash-regular.svg";
 export default {
     name: "blogCard",
     props: ["post"],
-    components: {Arrow, Edit, Delete}
+    components: {Arrow, Edit, Delete},
+    computed: {
+      editPost(){
+        return this.$store.state.editPost;
+      }
+    }
 }
 </script>
 
