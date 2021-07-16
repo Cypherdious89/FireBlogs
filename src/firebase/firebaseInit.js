@@ -4,12 +4,12 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 var firebaseConfig = {
-    apiKey: "AIzaSyBurN4UnZqMQypJ5PTgrrRG1F3WwkOlUig",
-    authDomain: "techno-report.firebaseapp.com",
-    projectId: "techno-report",
-    storageBucket: "techno-report.appspot.com",
-    messagingSenderId: "7890891905",
-    appId: "1:7890891905:web:4f2eae8ebc59c72c02c980"
+    apiKey: "AIzaSyB_Pglj1wKpXkON8JyRZoZzNkoNRCfirY4",
+    authDomain: "fireblogs-ps09.firebaseapp.com",
+    projectId: "fireblogs-ps09",
+    storageBucket: "fireblogs-ps09.appspot.com",
+    messagingSenderId: "68031626871",
+    appId: "1:68031626871:web:a0632dcf55d00c632d9072"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
