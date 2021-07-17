@@ -121,7 +121,6 @@ export default new Vuex.Store({
         }
       });
       state.postLoaded = true;
-      // console.log(state.blogPosts);
     },
 
     async updatePost({ commit, dispatch }, payload) {
