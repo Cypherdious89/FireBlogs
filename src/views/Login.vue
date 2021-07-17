@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <Loading v-if="loading" />
     <div class="form-wrap">
         <form class="login">
             <p class="login-register">
@@ -15,26 +17,49 @@
                     <input type="password" placeholder="password" id="password" v-model="password">
                     <password class="icon"/>
                 </div>
+                <div v-show="error" class="error">{{ this.errorMsg }}</div>
             </div>
             <router-link class="forgot-password" :to="{name : 'ForgotPassword'}">Forgot your password ?</router-link>
-            <button>Sign In !</button>
+            <button @click.prevent="signIn">Sign In !</button>
             <div class="angle"></div>
         </form>
         <div class="background"></div>
     </div>
+  </div>
 </template>
 
 <script>
 import email from "../assets/Icons/envelope-regular.svg";
 import password from "../assets/Icons/lock-alt-solid.svg";
+import Loading from "../components/Loading";
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
     name: "Login",
-    components: {email, password},
+    components: {email, password, Loading},
     data(){
         return{
-            email: null,
-            password: null
+            email: "",
+            password: "",
+            error: null,
+            errorMsg: '',
+            loading: null
         }
+    },
+    methods: {
+      signIn(){
+        this.loading = true;
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(()=>{
+          this.$router.push({name: 'Home'});
+          this.loading = false;
+          this.error = false;
+          this.errorMsg = "";
+        }).catch((err)=>{
+          this.loading = false;
+          this.error = true;
+          this.errorMsg = err.message;
+        })
+      }
     }
 }
 </script>
