@@ -1,10 +1,9 @@
 /* jshint esversion: 9 */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import firebase from "firebase/app";
-import "firebase/auth";
-import db from "../firebase/firebaseInit";
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import db from '../firebase/firebaseInit';
 
 Vue.use(Vuex);
 
@@ -12,13 +11,14 @@ export default new Vuex.Store({
   state: {
     blogPosts: [],
     postLoaded: null,
-    blogHTML: "Write your blog title here...",
-    blogTitle: "",
-    blogPhotoName: "",
-    blogPhotoFileURL: null,
+    blogHTML: 'Write your blog title here ...',
+    blogTitle: '',
+    blogPhotoName: null,
+    blogPhotoFileUrl: null,
     blogPhotoPreview: null,
     editPost: null,
     user: null,
+    profileAdmin: null,
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
@@ -26,36 +26,52 @@ export default new Vuex.Store({
     profileId: null,
     profileInitials: null,
   },
-  getters: {
-    blogPostsFeed(state) {
-      return state.blogPosts.slice(0, 2);
-    },
-    blogPostsCards(state) {
-      return state.blogPosts.slice(2, 6);
-    },
-  },
   mutations: {
     newBlogPost(state, payload) {
       state.blogHTML = payload;
     },
+    
     updateBlogTitle(state, payload) {
       state.blogTitle = payload;
     },
+
     fileNameChange(state, payload) {
       state.blogPhotoName = payload;
     },
+
     createFileURL(state, payload) {
-      state.blogPhotoFileURL = payload;
+      state.blogPhotoFileUrl = payload;
     },
+
     openPhotoPreview(state) {
       state.blogPhotoPreview = !state.blogPhotoPreview;
     },
-    toggleEditPost(state, payload){
+
+    toggleEditPost(state, payload) {
       state.editPost = payload;
     },
+
+    setBlogState(state, payload) {
+      state.blogTitle = payload.blogTitle;
+      state.blogHTML = payload.blogHTML;
+      state.blogPhotoFileUrl = payload.blogCoverPhoto;
+      state.blogPhotoName = payload.blogCoverPhotoName;
+    },
+
+    filterBlogPost(state, payload) {
+      state.blogPosts = state.blogPosts.filter(
+        (post) => post.blogID !== payload
+      );
+    },
+
     updateUser(state, payload) {
       state.user = payload;
     },
+
+    setProfileAdmin(state, payload) {
+      state.profileAdmin = payload;
+    },
+
     setProfileInfo(state, doc) {
       state.profileId = doc.id;
       state.profileEmail = doc.data().email;
@@ -78,11 +94,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getCurrentUser({ commit }) {
+    async getCurrentUser({ commit }, user) {
       const dataBase = await db.collection("users").doc(firebase.auth().currentUser.uid);
       const dbResults = await dataBase.get();
       commit("setProfileInfo", dbResults);
       commit("setProfileInitials");
+      const token = await user.getIdTokenResult();
+      const admin = await token.claims.admin;
+      commit("setProfileAdmin", admin);
     },
 
     async getPost({ state }) {
@@ -94,14 +113,15 @@ export default new Vuex.Store({
             blogID: doc.data().blogID,
             blogHTML: doc.data().blogHTML,
             blogCoverPhoto: doc.data().blogCoverPhoto,
+            blogCoverPhotoName: doc.data().blogCoverPhotoName,
             blogTitle: doc.data().blogTitle,
             blogDate: doc.data().date,
-            blogCoverPhotoName: doc.data().blogCoverPhotoName,
           };
           state.blogPosts.push(data);
         }
       });
       state.postLoaded = true;
+      // console.log(state.blogPosts);
     },
 
     async updatePost({ commit, dispatch }, payload) {
@@ -124,7 +144,14 @@ export default new Vuex.Store({
       });
       commit("setProfileInitials");
     },
-    
+  },
+  getters: {
+    blogPostsFeed(state) {
+      return state.blogPosts.slice(0, 2);
+    },
+    blogPostsCards(state) {
+      return state.blogPosts.slice(2, 6);
+    },
   },
   modules: {
   }

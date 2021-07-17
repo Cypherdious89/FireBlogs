@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <BlogPost v-if="!user" :post="welcomeScreen" />
-    <BlogPost :post="post" v-for="(post, index) in BlogPostFeed" :key="index"/>
+    <BlogPost :post="post" v-for="(post, index) in blogPostFeed" :key="index"/>
     <div class="blog-card-wrap">
       <div class="container">
           <h3>View More Recent Blogs</h3>
           <div class="blog-cards">
-            <BlogCard :post="post" v-for="(post, index) in BlogPostCards" :key="index"/>
+            <BlogCard :post="post" v-for="(post, index) in blogPostCards" :key="index"/>
           </div>
       </div>
     </div>
@@ -40,10 +40,10 @@ export default {
     };
   },
   computed: {
-    BlogPostFeed(){
+    blogPostFeed(){
       return this.$store.getters.BlogPostFeed;
     },
-    BlogPostCards(){
+    blogPostCards(){
       return this.$store.getters.BlogPostCards;
     },
     user() {

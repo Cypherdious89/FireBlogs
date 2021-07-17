@@ -29,6 +29,12 @@
                   <p>Profile</p>
                 </router-link>
               </div>
+              <div class="option">
+                <router-link v-if="admin" class="option" :to="{name: 'Admin'}">
+                  <adminIcon class="icon" />
+                  <p>Admin Settings</p>
+                </router-link>
+              </div>
               <div @click="signOut" class="option">
                 <signOutIcon class="icon" />
                 <p>Sign Out</p>
@@ -53,13 +59,14 @@
 <script>
 import menuIcon from "../assets/Icons/bars-regular.svg";
 import userIcon from "../assets/Icons/user-alt-light.svg";
+import adminIcon from "../assets/Icons/user-crown-light.svg";
 import signOutIcon from "../assets/Icons/sign-out-alt-regular.svg";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 export default {
     name: "navigation",
-    components: {menuIcon, userIcon, signOutIcon},
+    components: {menuIcon, userIcon, adminIcon,signOutIcon},
     data(){
       return {
         profileMenu: null,
@@ -99,6 +106,9 @@ export default {
     computed: {
       user() {
         return this.$store.state.user;
+      },
+      admin() {
+        return this.$store.state.profileAdmin;
       }
     },
 }

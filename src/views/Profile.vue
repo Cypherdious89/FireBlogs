@@ -5,7 +5,10 @@
         <h2>Account Settings</h2>
         <div class="profile-info">
             <div class="initials">{{ $store.state.profileInitials }}</div>
-            <div class="user-badge">Edit your Profile</div>
+            <div v-if="admin" class="user-badge">
+              <adminIcon class="icon" />
+              <span>Admin</span>
+            </div>
             <div class="input">
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" v-model="firstName" />
@@ -30,9 +33,10 @@
 
 <script>
 import Modal from "../components/Modal";
+import adminIcon from "../assets/Icons/user-crown-light.svg";
 export default {
     name: "Profile",
-    components: {Modal},
+    components: {Modal, adminIcon},
     data() {
         return {
         modalMessage: "Changes were saved!",
@@ -76,6 +80,9 @@ export default {
         email() {
         return this.$store.state.profileEmail;
         },
+        admin() {
+          return this.$store.state.profileAdmin;
+        }
     },
 }
 </script>
