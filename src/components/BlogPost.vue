@@ -1,15 +1,15 @@
 <template>
-    <div class="blog-wrapper no-user">
+    <div class="blog-wrapper" :class="{'no-user' : !user}">
         <div class="blog-content">
             <div>
                 <h2 v-if="post.welcomeScreen">{{post.title}}</h2>
-                <h2 v-else>{{post.title}}</h2>
+                <h2 v-else>{{post.blogTitle}}</h2>
                 <p v-if="post.welcomeScreen">{{post.blogPost}}</p>
-                <p v-else>{{post.blogHTML}}</p>
-                <router-link v-if="post.welcomeScreen" class="link link-light" to="#">
+                <p v-else v-html="post.blogHTML"></p>
+                <router-link v-if="post.welcomeScreen" class="link link-light" :to="{name: 'Login'}">
                     Login/Register <Arrow class="arrow arrow-light" />
                 </router-link>
-                <router-link v-else class="link" to="#">
+                <router-link v-else class="link" :to="{name: 'ViewBlog', params: {blogid: this.post.blogID}}">
                     View Post <Arrow class="arrow" />
                 </router-link>
             </div>
@@ -18,7 +18,7 @@
             <img v-if="post.welcomeScreen" alt="Header Photo" 
                 :src="require(`../assets/blogPhotos/${post.photo}.jpg`)">
             <img v-else alt="Post photo" 
-                :src="require(`../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)">
+                :src="post.blogCoverPhoto">
         </div>
     </div>
 </template>
@@ -28,7 +28,12 @@ import Arrow from "../assets/Icons/arrow-right-light.svg"
 export default {
     name: "blogPost",
     props: ["post"],
-    components: {Arrow}
+    components: {Arrow},
+    computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
 }
 </script>
 
