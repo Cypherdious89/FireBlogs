@@ -233,6 +233,10 @@ export default {
       min-width: 300px;
     }
 
+    @media(max-width: 800px){
+      flex-direction: column;
+    }
+
     input {
       transition: 0.5s ease-in-out all;
       padding: 10px 4px;
@@ -251,6 +255,14 @@ export default {
       position: relative;
       display: flex;
 
+      @media(max-width: 800px){
+        margin-top: 16px;
+      }
+
+      @media(max-width: 500px){
+        flex-direction: column;
+      }
+
       input {
         display: none;
       }
@@ -258,12 +270,22 @@ export default {
       .preview {
         margin-left: 16px;
         text-transform: initial;
+
+        @media(max-width: 500px){
+          margin-top: 16px;
+          margin-left: 0px !important;
+        }
       }
 
       span {
         font-size: 12px;
         margin-left: 16px;
         align-self: center;
+
+        @media(max-width: 500px){
+          margin-top: 10px;
+          margin-left: 0px !important;
+        }
       }
     }
   }
@@ -295,8 +317,19 @@ export default {
   .blog-actions {
     margin-top: 32px;
 
+    @media(max-width: 400px){
+      display: flex;
+      margin-top: 16px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     button {
       margin-right: 16px;
+      
+      @media(max-width: 400px){
+        margin-right: 0 !important;
+      }
     }
   }
 }

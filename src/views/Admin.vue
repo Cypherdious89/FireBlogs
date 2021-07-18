@@ -67,14 +67,6 @@ export default {
       max-width: 600px;
       margin: 32px auto;
 
-      span {
-        font-size: 14px;
-        background-color: #303030;
-        color: #fff;
-        padding: 3px 6px;
-        border-radius: 20px;
-      }
-
       .input {
         margin: 16px 0;
 

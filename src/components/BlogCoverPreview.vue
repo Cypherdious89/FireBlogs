@@ -47,6 +47,24 @@ export default {
     padding: 50px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
+    @media(max-width:700px) {
+      height: 300px;
+      width: 500px;
+      padding: 40px;
+    }
+
+    @media(max-width:500px) {
+      height: 250px;
+      width: 350px;
+      padding: 30px;
+    }
+
+    @media(max-width:400px) {
+      height: 200px;
+      width: 300px;
+      padding: 25px;
+    }
+
     .icon {
       width: 24px;
       height: auto;

@@ -6,16 +6,16 @@
           <router-link class="header" :to="{ name: 'Home' }">FireBlogs</router-link>
           <ul>
             <li>
-              <a href="#"><github class="svg-icon"/></a>
+              <a href="https://github.com/Priyansh-09" target="blank"><github class="svg-icon"/></a>
             </li>
             <li>
-              <a href="#"><twitter class="svg-icon"/></a>
+              <a href="https://twitter.com/_priyansh_09" target="blank"><twitter class="svg-icon"/></a>
             </li>
             <li>
-              <a href="#"><instagram class="svg-icon"/></a>
+              <a href="https://www.instagram.com/_priyansh.09/" target="blank"><instagram class="svg-icon"/></a>
             </li>
             <li>
-              <a href="#"><linkedin class="svg-icon"/></a>
+              <a href="https://www.linkedin.com/in/priyansh-09/" target="blank"><linkedin class="svg-icon"/></a>
             </li>
           </ul>
         </div>
